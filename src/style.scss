@@ -1,0 +1,375 @@
+@import url("https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100&display=swap");
+
+@mixin mobile{
+  @media screen and (max-width: 480px) {
+    @content
+  }
+}
+
+@mixin tablet{
+  @media screen and (max-width: 768px) {
+    @content
+  }
+}
+@mixin laptop{
+  @media screen and (max-width: 1124px) {
+    @content
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+::-webkit-scrollbar{
+  display: none;
+}
+.formContainer {
+  background: #171f26;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .formWrapper {
+    background: white;
+    padding: 20px 60px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    width: 400px;
+    border: 1px solid #01a6de;
+    box-shadow: 8px 26px 100px #01a6de;
+
+    .mainTitle {
+      font-weight: bold;
+      font-size: 24px;
+      color: #01a6de;
+    }
+    .pageTitle {
+      font-size: 12px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+
+      input {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #000;
+        &::placeholder {
+          color: lightgray;
+        }
+      }
+      // input[type = "file" ]{
+      //     display: none;
+      // }
+      button {
+        padding: 10px;
+        color: white;
+        font-weight: bold;
+        background: #01a6de;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+      }
+      p {
+        font-size: 12px;
+        color: #01a6de;
+        margin-top: 10px;
+      }
+      label {
+        // margin-left: -150px;
+        position: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        img {
+          width: 40px;
+          height: 40px;
+          margin-right: 10px;
+          object-fit: cover;
+        }
+        span {
+          color: grey;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+.home {
+  background: #171f26;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .container {
+    border: 2px solid #000;
+    box-shadow: 2px 2px 100px #01a6de;
+    color: white;
+    width: 65%;
+    height: 80%;
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    .sidebar {
+      flex: 1;
+      border-right: .5px solid   gray;
+      background: #31363b;
+
+      .navbar{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 10px;
+        background: #171f26;
+        border-bottom: 1px solid #31363b;
+        // height: 50px;
+        img{
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+        }
+        .logo{
+            width: max-content;
+            font-weight: bold;
+            @include laptop{
+              display: none;
+            }
+        }
+        span{
+          @include tablet{
+            display: none;
+          }
+        }
+        .user{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          @include tablet{
+            justify-items: flex-end;
+          } 
+
+          button{
+            font-size: 10px;
+            border-radius: 5px;
+            padding: 2px 5px;
+            background: #01a6de;
+            border: none;
+            cursor: pointer;
+            @include tablet{
+              align-self: flex-end;
+            }
+          }
+        }
+      }
+
+      .search{
+        border-bottom: .5px solid gray;
+
+        .form{
+          input{
+            border: none;
+            outline: none;
+            width: 100%;
+            color: lightgray;
+            background: transparent;
+            padding: 10px ;
+
+          &::placeholder{
+            color: lightgray;
+          }
+          }
+        }
+      }
+      .userInfo{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        height: 60px;
+        padding: 5px;
+        cursor: pointer;
+        img{
+          object-fit: cover;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          @include tablet{
+            height: 30px;
+            width: 30px;
+          }
+        }
+        &:hover{
+          background: #171f26;
+        }
+        .chatsInfo{
+          span{
+            font-weight: bold;
+            @include mobile{
+              display: none;
+            }
+          }
+          p{
+            font-size: 12px;
+            color: gray;
+            @include mobile{
+              display: none;
+            }
+          }
+        }
+      }
+
+    }
+    .chat {
+      flex: 2;
+      .chatInfo{
+        padding: 15px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #31363b;
+        
+        span{
+          font: 20px;
+          font-weight: bold;
+        }
+        .icons{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          img{
+            width: 20px;
+            height: 20px;
+            object-fit: cover;
+          }
+        }
+      }
+      .messages{
+        height: calc(100% - 120px);
+        overflow: scroll;
+
+        .message{
+          display: flex;
+          // align-items: center;
+          gap: 10px;
+          
+          .mInfo{
+            display: flex;
+            flex-direction: column;
+            color: lightgray;
+            margin: 5px 5px 15px 5px;
+            font-size: 10px;
+            span{
+              width: max-content;
+              margin: 5px 0;
+            }
+            img{
+              height: 40px;
+              width: 40px;
+              border-radius: 50%;
+              object-fit: cover;
+              @include mobile{
+                height: 30px;
+                width: 30px;
+              }
+            }
+          }
+          .mContent{
+            display: flex;
+            flex-direction: column;
+            margin: 10px 0;
+            gap: 10px;
+            span{
+              background: #01a6de;
+              height: max-content;
+              padding: 7px 5px;
+              border-radius: 0 7px 7px;
+              font-size: 14px;
+              width: max-content;
+              @include mobile{
+                font-size: 12px;
+              }
+            }
+            img{
+              // margin-left: 10px;
+              width: 50%;
+            }
+          }
+          &.owner{
+            flex-direction: row-reverse;
+            .mContent{
+              span{
+                align-items: flex-end;
+                border-radius: 7px 0 7px 7px ;
+              }
+              img{
+                display: flex;
+              }
+            }
+          }
+        }
+      }
+      .input{
+        background: #31363b;
+        height: 70px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        input{
+          width: 100%;
+          height: 100%;
+          border: none;
+          outline: none;
+          padding: 15px 10px;
+          background: #31363b;
+          align-items: center;
+          color: white;
+        }
+        .inputFiles{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #31363b;
+          gap: 10px;
+          height: 100%;
+          padding: 10px;
+          
+          label{
+            cursor: pointer;
+            img{
+              width: 35px;
+              height: 35px;
+            }
+          }
+          button{
+            cursor: pointer;
+            padding: 10px 5px;  
+            background: #01a6de;
+            color: #000;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+          }
+        }
+      }
+
+
+    }
+  }
+}
