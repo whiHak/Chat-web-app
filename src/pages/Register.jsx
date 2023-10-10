@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const [err, setErr] = useState(false);
+
   const navigate = useNavigate();
 
   const handelSubmit = async (e) => {
@@ -27,31 +28,35 @@ export const Register = () => {
 
       uploadTask.on(
         (error) => {
-          setErr(true)
+          setErr(true);
         },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then( async(downloadURL) => {
-            await updateProfile(response.user,{
-              name,
-              photoURL: downloadURL
-            });
+        async () => {
+          try {
+            const snapshot = await getDownloadURL(uploadTask.snapshot.ref);
+            const downloadURL = snapshot;
 
-            await setDoc(doc(db, "users", response.user.uid),{
+            await updateProfile(response.user, {
+              name,
+              photoURL: downloadURL,
+            });
+            await setDoc(doc(db, "users", response.user.uid), {
               uid: response.user.uid,
               name,
               email,
-              photoURL: downloadURL
+              photoURL: downloadURL,
             });
-            await setDoc(doc(db, "userChats",{}));
-          });
-          navigate('/')
+            // await setDoc(doc(db, "userChats", {}));
+            navigate("/");
+          } catch (error) {
+            console.error(error);
+            setErr(true);
+          }
         }
       );
     } catch (error) {
       setErr(true);
     }
   };
-
   return (
     <div className="formContainer">
       <div className="formWrapper">
