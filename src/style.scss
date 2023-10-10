@@ -254,9 +254,12 @@
           justify-content: center;
           gap: 10px;
           img{
-            width: 20px;
-            height: 20px;
+            width: 30px;
+            height: 30px;
             object-fit: cover;
+            background: #01a6de;
+            border-radius: 15px;
+            cursor: pointer;
           }
         }
       }
