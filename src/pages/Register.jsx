@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Add from "../images/Add.png";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from "../firebase";
@@ -35,8 +35,9 @@ export const Register = () => {
             const snapshot = await getDownloadURL(uploadTask.snapshot.ref);
             const downloadURL = snapshot;
 
-            await updateProfile(response.user, {
-              name,
+  
+            await updateProfile(auth.currentUser, {
+              displayName: name,
               photoURL: downloadURL,
             });
             await setDoc(doc(db, "users", response.user.uid), {
@@ -45,7 +46,7 @@ export const Register = () => {
               email,
               photoURL: downloadURL,
             });
-            // await setDoc(doc(db, "userChats", {}));
+            await setDoc(doc(db, "userChats", response.user.uid),{});
             navigate("/");
           } catch (error) {
             console.error(error);
