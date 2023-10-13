@@ -117,7 +117,7 @@
   justify-content: center;
 
   .container {
-    border: 2px solid #000;
+    border: 2px solid #31363b;
     box-shadow: 2px 2px 100px #01a6de;
     color: white;
     width: 65%;
@@ -318,10 +318,11 @@
             flex-direction: row-reverse;
             .mContent{
               span{
-                align-items: flex-end;
+                align-self: flex-end;
                 border-radius: 7px 0 7px 7px ;
               }
               img{
+                align-self: flex-end;
                 display: flex;
               }
             }

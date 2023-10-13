@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
+import { ChatContext } from "../context/ChatContext";
 
 export const Search = () => {
   const [user, setUser] = useState(null);
@@ -20,7 +21,8 @@ export const Search = () => {
   const [err, setErr] = useState(false);
 
   const currentUser = useContext(AuthContext);
-
+  console.log(user)
+  const dispatch = useContext(ChatContext)
   const handleSearch = async () => {
     const q = query(collection(db, "users"), where("name", "==", username));
 
@@ -60,11 +62,14 @@ export const Search = () => {
         await updateDoc(doc(db, "userChats", user.uid), {
           [combinedId + ".userInfo"]: {
             uid: currentUser.uid,
-            name: currentUser.name,
+            name: currentUser.displayName,
             photoURL: currentUser.photoURL,
           },
           [combinedId + ".date"]: serverTimestamp(),
         });
+
+        dispatch({ type: "COMPLETE", payload: user });
+
       }
     } catch (error) {}
     setUser(null)

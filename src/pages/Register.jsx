@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const [err, setErr] = useState(false);
+  const [errMess, setErrMess] = useState("");
 
   const navigate = useNavigate();
 
@@ -18,6 +19,7 @@ export const Register = () => {
     const pwd = e.target[2].value;
     const file = e.target[3].files[0];
 
+    setErr(false);
     try {
       const response = await createUserWithEmailAndPassword(auth, email, pwd);
       console.log(response.user);
@@ -35,7 +37,6 @@ export const Register = () => {
             const snapshot = await getDownloadURL(uploadTask.snapshot.ref);
             const downloadURL = snapshot;
 
-  
             await updateProfile(auth.currentUser, {
               displayName: name,
               photoURL: downloadURL,
@@ -46,15 +47,16 @@ export const Register = () => {
               email,
               photoURL: downloadURL,
             });
-            await setDoc(doc(db, "userChats", response.user.uid),{});
+            await setDoc(doc(db, "userChats", response.user.uid), {});
             navigate("/");
           } catch (error) {
-            console.error(error);
+            setErrMess(error.message);
             setErr(true);
           }
         }
       );
     } catch (error) {
+      setErrMess(error.message);
       setErr(true);
     }
   };
@@ -72,9 +74,13 @@ export const Register = () => {
             <img src={Add} alt="add avatar icon" />
             <span>Add an avatar</span>
           </label>
-          {err && <span>something went wrong</span>}
+          {err && (
+            <span style={{ color: "red", fontSize: "12px" }}>{errMess}</span>
+          )}
           <button>Sign Up</button>
-          <p>You have an account? <Link to="/Login">Login</Link> </p>
+          <p>
+            You have an account? <Link to="/login">Login</Link>{" "}
+          </p>
         </form>
       </div>
     </div>

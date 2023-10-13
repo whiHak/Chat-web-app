@@ -4,12 +4,8 @@ import { getStorage} from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
 
 
-import { apiKey } from "./config";
-import { authDomain } from "./config";
-import { projectId } from "./config";
-import { storageBucket } from "./config";
-import { messagingSenderId } from "./config";
-import { appId } from "./config";
+import { apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId } from "./config";
+
 
 
 const firebaseConfig = {

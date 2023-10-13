@@ -5,19 +5,23 @@ import { auth } from "../firebase";
 
 export const Login = () => {
   
-  const [err, setErr] = useState();
+  const [err, setErr] = useState(false);
+  const [errMess, setErrMess] = useState("");
+  
   const navigate = useNavigate()
 
   const handelSubmit = async (e) => {
     e.preventDefault();
     const email = e.target[0].value;
     const pwd = e.target[1].value;
-
+    
+    setErr(false)
     try {
       await signInWithEmailAndPassword(auth, email, pwd);
       navigate('/')
       
     } catch (error) {
+      setErrMess(error.message)
       setErr(true);
     }
   };
@@ -29,10 +33,10 @@ export const Login = () => {
           <span className="pageTitle">Login</span>
           <input type="email" placeholder="Email" />
           <input type="password" placeholder="Password" />
-          {err && <span>some error</span>}
+          {err && <span style={{color: "red", fontSize: "12px"}}>{errMess}</span>}
           <button>Sign in</button>
           <p>
-            You don't have an account? <Link to="/Register">Register</Link>{" "}
+            You don't have an account? <Link to="/register">Register</Link>{" "}
           </p>
         </form>
       </div>
