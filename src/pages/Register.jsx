@@ -5,10 +5,12 @@ import { auth, db, storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
+import {v4 as uuid} from "uuid"
 
 export const Register = () => {
   const [err, setErr] = useState(false);
   const [errMess, setErrMess] = useState("");
+  const[URL, setURL] = useState("")
 
   const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ export const Register = () => {
       console.log(response.user);
 
       const storageRef = ref(storage, name);
-
+      console.log(storageRef)
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(
@@ -34,27 +36,27 @@ export const Register = () => {
         },
         async () => {
           try {
-            const snapshot = await getDownloadURL(uploadTask.snapshot.ref);
-            const downloadURL = snapshot;
-
-            await updateProfile(auth.currentUser, {
-              displayName: name,
-              photoURL: downloadURL,
-            });
-            await setDoc(doc(db, "users", response.user.uid), {
-              uid: response.user.uid,
-              name,
-              email,
-              photoURL: downloadURL,
-            });
-            await setDoc(doc(db, "userChats", response.user.uid), {});
-            navigate("/");
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref) 
+            setURL(downloadURL);
           } catch (error) {
             setErrMess(error.message);
             setErr(true);
           }
         }
-      );
+        );
+        console.log(URL)
+        await updateProfile(auth.currentUser, {
+          displayName: name,
+          photoURL: URL,
+        });
+        await setDoc(doc(db, "users", response.user.uid), {
+          uid: response.user.uid,
+          name,
+          email,
+          photoURL: URL,
+        });
+        await setDoc(doc(db, "userChats", response.user.uid), {});
+        navigate("/"); 
     } catch (error) {
       setErrMess(error.message);
       setErr(true);

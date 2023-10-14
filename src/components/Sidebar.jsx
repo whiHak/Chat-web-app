@@ -6,9 +6,11 @@ import {Chats} from "./Chats"
 export const Sidebar = () => {
   return (
     <div className="sidebar">
-      <Navbar/>
-      <Search/>
-      <Chats/>
+      <div className="sBar">
+        <Navbar/>
+        <Search/>
+        <Chats/>
+      </div>
     </div>
   );
 };
