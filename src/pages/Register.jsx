@@ -39,12 +39,10 @@ export const Register = () => {
             const downloadURL = await getDownloadURL(uploadTask.snapshot.ref) 
             setURL(downloadURL);
           } catch (error) {
-            setErrMess(error.message);
-            setErr(true);
+            //Handel error
           }
         }
         );
-        console.log(URL)
         await updateProfile(auth.currentUser, {
           displayName: name,
           photoURL: URL,
