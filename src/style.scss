@@ -5,6 +5,11 @@
     @content;
   }
 }
+@mixin m-mobile{
+  @media screen and (max-width: 375px){
+    @content;
+  }
+}
 
 @mixin tablet {
   @media screen and (max-width: 768px) {
@@ -224,7 +229,7 @@
           }
         }
         @include mobile{
-          width: 60%;
+          width: 45%;
         }
       }
       .userInfo {
@@ -255,6 +260,11 @@
           p {
             font-size: 12px;
             color: gray;
+            display: flex;
+            flex-wrap: wrap;
+            @include mobile{
+              display: none;
+            }
           }
         }
         @include mobile{
