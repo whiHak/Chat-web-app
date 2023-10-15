@@ -21,7 +21,6 @@ export const Search = () => {
   const [err, setErr] = useState(false);
 
   const currentUser = useContext(AuthContext);
-  console.log(user)
   const dispatch = useContext(ChatContext)
   const handleSearch = async () => {
     const q = query(collection(db, "users"), where("name", "==", username));

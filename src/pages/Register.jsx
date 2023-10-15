@@ -24,7 +24,6 @@ export const Register = () => {
     setErr(false);
     try {
       const response = await createUserWithEmailAndPassword(auth, email, pwd);
-      console.log(response.user);
 
       const storageRef = ref(storage, name);
       console.log(storageRef)
