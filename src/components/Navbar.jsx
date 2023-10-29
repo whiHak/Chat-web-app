@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from "react";
-import profile from "../images/profile.jpg";
 import { signOut, updateProfile } from "firebase/auth";
 import { auth, storage } from "../firebase";
 import { AuthContext } from "../context/AuthContext";

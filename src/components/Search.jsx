@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import profile from "../images/profile.jpg";
 import {
   collection,
   doc,

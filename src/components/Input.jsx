@@ -77,6 +77,7 @@ export const Input = () => {
     e.code === "Enter" && handelSend();
   };
 
+  
   return (
     <div className="input">
       <input

@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import profile from "../images/profile.jpg";
 import { AuthContext } from "../context/AuthContext";
 import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
@@ -30,6 +29,7 @@ export const Chats = () => {
     });
   };
 
+
   return (
     <div className="chats">
       {Object.entries(chats)?.map((chat) => {
@@ -43,7 +43,7 @@ export const Chats = () => {
               key={chat[0]}
               onClick={() => handleSelect(userInfo)}
             >
-              <img src={userInfo.photoURL || profile} alt="" />
+              <img src={userInfo?.photoURL} alt="" />
               <div className="chatsInfo">
                 <span>{userInfo.name}</span>
                 <p>{lastMessage}</p>
